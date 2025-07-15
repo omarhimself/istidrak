@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>نقطة الامتحان الاستدراكي المطلوبة Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #2e86de;
+      --secondary: #f6faff;
+      --glass: rgba(255,255,255,0.6);
+      --border: rgba(46,134,222,0.2);
+      --shadow: 0 8px 32px 0 rgba(31,38,135,0.2);
+      --radius: 18px;
+      --font-size: 1.25em;
+      --font-size-lg: 2em;
+      --transition: 0.2s;
+      --focus: #ffbe76;
+      --dark-bg: #23272f;
+      --dark-text: #f6faff;
+      --light-bg: #f6faff;
+      --light-text: #23272f;
+    }
+    body {
+      background: linear-gradient(135deg, #2e86de 0%, #f6faff 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      transition: background 0.5s;
+    }
+    .dark-mode {
+      background: linear-gradient(135deg, #23272f 0%, #2e86de 100%);
+    }
+    .calculator {
+      background: var(--glass);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5em 2em;
+      backdrop-filter: blur(9px);
+      border: 1.5px solid var(--border);
+      max-width: 400px;
+      width: 100%;
+      transition: background 0.5s, color 0.5s;
+    }
+    .dark-mode .calculator {
+      background: rgba(35,39,47,0.7);
+      color: var(--dark-text);
+      border: 1.5px solid #2e86de;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+      font-size: var(--font-size-lg);
+      letter-spacing: 1px;
+      color: var(--primary);
+      transition: color 0.5s;
+    }
+    .dark-mode h2 {
+      color: var(--dark-text);
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-size: var(--font-size);
+      font-weight: 500;
+      color: #23272f;
+      transition: color 0.5s;
+    }
+    .dark-mode label {
+      color: var(--dark-text);
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.7em;
+      margin-top: 0.4em;
+      border-radius: 12px;
+      border: 1.5px solid var(--primary);
+      font-size: var(--font-size);
+      background: #fff;
+      transition: border 0.3s, box-shadow 0.3s;
+      outline: none;
+      box-shadow: 0 2px 8px 0 rgba(46,134,222,0.07);
+    }
+    .dark-mode input[type="number"] {
+      background: #2e86de22;
+      color: var(--dark-text);
+      border: 1.5px solid #ffbe76;
+    }
+    input[type="number"]:focus {
+      border: 1.5px solid var(--focus);
+      box-shadow: 0 0 0 2px #ffbe7680;
+    }
+    .toggle-mode {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1em;
+    }
+    .toggle-mode button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 1.3em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(46,134,222,0.13);
+      transition: background 0.3s;
+    }
+    .toggle-mode button:hover {
+      background: #1459a7;
+    }
+    button.calculate {
+      width: 100%;
+      margin-top: 2em;
+      padding: 1em;
+      font-size: var(--font-size);
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 16px 0 rgba(46,134,222,0.12);
+      transition: background 0.3s, transform 0.1s;
+    }
+    button.calculate:active {
+      background: #1459a7;
+      transform: scale(0.98);
+    }
+    .result {
+      margin-top: 2em;
+      font-size: var(--font-size-lg);
+      text-align: center;
+      color: var(--primary);
+      font-weight: bold;
+      letter-spacing: 1px;
+      min-height: 1.5em;
+      transition: color 0.5s;
+      animation: fadeIn 0.5s;
+    }
+    .dark-mode .result {
+      color: #ffbe76;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Accessibility: Larger text for user preference */
+    @media (min-width: 600px) {
+      body, label, input, button, .result {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator" role="form" aria-label="Calculator for required remedial exam score">
+    <div class="toggle-mode">
+      <button id="mode-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">🌙</button>
+    </div>
+    <h2>نقطة الامتحان الاستدراكي المطلوبة</h2>
+    <label for="b2">:مجموع المقرر الذي اخترته</label>
+    <input type="number" id="b2" value="1" step="any" aria-label=":مجموع المقرر الذي اخترته" tabindex="1">
+
+    <label for="b5">:عدد النقاط التي تريد اضافتها للمقرر</label>
+    <input type="number" id="b5" value="1" step="any" aria-label="عدد النقاط التي تريد اضافتها للمقرر" tabindex="2">
+
+    <label for="b9">:معامل المقرر</label>
+    <input type="number" id="b9" value="1" step="any" aria-label="معامل المقرر" tabindex="3">
+
+    <label for="b12">TD أو CC:</label>
+    <input type="number" id="b12" value="1" step="any" aria-label="TD أو CC" tabindex="4">
+
+    <button class="calculate" onclick="calculate()" aria-label="احسب" tabindex="5">احسب</button>
+    <div class="result" id="result" aria-live="polite"></div>
+  </div>
+  <script>
+    // Accessibility: Keyboard navigation for calculate button
+    document.querySelector('.calculate').addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') calculate();
+    });
+
+    // Dark/Light mode toggle
+    const modeBtn = document.getElementById('mode-toggle');
+    modeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      modeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    // CEILING.PRECISE implementation
+    function ceilingPrecise(number, significance) {
+      significance = significance || 1;
+      return Math.ceil(number / significance) * significance;
+    }
+
+    function calculate() {
+      const b2 = parseFloat(document.getElementById('b2').value);
+      const b5 = parseFloat(document.getElementById('b5').value);
+      const b9 = parseFloat(document.getElementById('b9').value);
+      const b12 = parseFloat(document.getElementById('b12').value);
+
+      // Formula: CEILING.PRECISE(((((B5+B2)/B9)*3)-B12)/2, 0.25)
+      let result = (((((b5 + b2) / b9) * 3) - b12) / 2);
+      result = ceilingPrecise(result, 0.25);
+
+      // Animate result
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.opacity = 0;
+      setTimeout(() => {
+        resultDiv.textContent = "نقطة الامتحان الاستدراكي المطلوبة: " + result;
+        resultDiv.style.opacity = 1;
+      }, 200);
+    }
+  </script>
+</body>
+</html>
